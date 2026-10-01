@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Estructural: Artículo de Opinión - La Jornada</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .highlight-box { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .highlight-box:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.15); }
+        /* Forced offline color fallbacks for mobile rendering */
+        .bg-amber-50 { background-color: #fffbeb !important; }
+        .border-amber-500 { border-color: #f59e0b !important; }
+        .bg-blue-50 { background-color: #eff6ff !important; }
+        .border-blue-500 { border-color: #3b82f6 !important; }
+        .bg-emerald-50 { background-color: #ecfdf5 !important; }
+        .border-emerald-500 { border-color: #10b981 !important; }
+        .bg-purple-50 { background-color: #faf5ff !important; }
+        .border-purple-500 { border-color: #a855f7 !important; }
+        .bg-rose-50 { background-color: #fff1f2 !important; }
+        .border-rose-500 { border-color: #f43f5e !important; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-red-600 text-white font-bold p-2.5 rounded-xl shadow-lg">
+                    <i class="fa-solid fa-newspaper text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg md:text-xl font-bold tracking-tight">Mi Canvas: Partes del Artículo de Opinión</h1>
+                    <p class="text-xs text-slate-400">Análisis basado en <span class="italic">La Jornada</span> (29 de septiembre de 2026)</p>
+                </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-1.5 bg-slate-800 p-1 rounded-xl border border-slate-700">
+                <button onclick="filterParts('all')" id="btn-all" class="px-2.5 py-1.5 text-xs font-medium rounded-lg bg-red-600 text-white transition shadow">Ver Todo</button>
+                <button onclick="filterParts('titulo')" id="btn-titulo" class="px-2.5 py-1.5 text-xs font-medium rounded-lg text-slate-300 hover:text-white transition">Título</button>
+                <button onclick="filterParts('enunciador')" id="btn-enunciador" class="px-2.5 py-1.5 text-xs font-medium rounded-lg text-slate-300 hover:text-white transition">Enunciador</button>
+                <button onclick="filterParts('introduccion')" id="btn-introduccion" class="px-2.5 py-1.5 text-xs font-medium rounded-lg text-slate-300 hover:text-white transition">Introducción</button>
+                <button onclick="filterParts('cuerpo')" id="btn-cuerpo" class="px-2.5 py-1.5 text-xs font-medium rounded-lg text-slate-300 hover:text-white transition">Cuerpo</button>
+                <button onclick="filterParts('conclusion')" id="btn-conclusion" class="px-2.5 py-1.5 text-xs font-medium rounded-lg text-slate-300 hover:text-white transition">Conclusión</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Left Panel: Interactive Legend & Guide -->
+        <div class="lg:col-span-1 flex flex-col gap-4">
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 lg:sticky lg:top-24">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="font-bold text-slate-900 text-base md:text-lg flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-red-600"></i> Estructura Explicada
+                    </h2>
+                    <span class="bg-red-50 text-red-700 text-xs font-semibold px-2.5 py-1 rounded-full">5 Elementos</span>
+                </div>
+                <p class="text-xs text-slate-500 mb-4">Toca cada parte para resaltar su ubicación exacta y ver su definición pedagógica.</p>
+                
+                <div class="space-y-2.5" id="legend-list">
+                    <!-- Legend Item 1 -->
+                    <div onclick="scrollToPart('sec-titulo')" class="cursor-pointer p-3 rounded-xl border border-amber-300 bg-amber-50 active:bg-amber-100 transition flex items-start gap-3 shadow-sm">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-amber-500 text-white font-bold text-xs flex items-center justify-center mt-0.5">1</span>
+                        <div>
+                            <h3 class="text-xs font-bold text-amber-900">Título</h3>
+                            <p class="text-[11px] text-amber-700 leading-snug mt-0.5">Sintetiza el tema principal o la postura adoptada frente al hecho.</p>
+                        </div>
+                    </div>
+
+                    <!-- Legend Item 2 -->
+                    <div onclick="scrollToPart('sec-enunciador')" class="cursor-pointer p-3 rounded-xl border border-blue-300 bg-blue-50 active:bg-blue-100 transition flex items-start gap-3 shadow-sm">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 text-white font-bold text-xs flex items-center justify-center mt-0.5">2</span>
+                        <div>
+                            <h3 class="text-xs font-bold text-blue-900">Enunciador (Autor / Fecha)</h3>
+                            <p class="text-[11px] text-blue-700 leading-snug mt-0.5">Identifica a la persona experta o periodista que emite la valoración.</p>
+                        </div>
+                    </div>
+
+                    <!-- Legend Item 3 -->
+                    <div onclick="scrollToPart('sec-introduccion')" class="cursor-pointer p-3 rounded-xl border border-emerald-300 bg-emerald-50 active:bg-emerald-100 transition flex items-start gap-3 shadow-sm">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-500 text-white font-bold text-xs flex items-center justify-center mt-0.5">3</span>
+                        <div>
+                            <h3 class="text-xs font-bold text-emerald-900">Introducción y Tesis</h3>
+                            <p class="text-[11px] text-emerald-700 leading-snug mt-0.5">Plantea el tema (Ayotzinapa a 12 años) y la postura crítica inicial.</p>
+                        </div>
+                    </div>
+
+                    <!-- Legend Item 4 -->
+                    <div onclick="scrollToPart('sec-cuerpo')" class="cursor-pointer p-3 rounded-xl border border-purple-300 bg-purple-50 active:bg-purple-100 transition flex items-start gap-3 shadow-sm">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-purple-500 text-white font-bold text-xs flex items-center justify-center mt-0.5">4</span>
+                        <div>
+                            <h3 class="text-xs font-bold text-purple-900">Cuerpo / Argumentación</h3>
+                            <p class="text-[11px] text-purple-700 leading-snug mt-0.5">Desarrolla argumentos, antecedentes (1968, Chiapas), el GIEI y datos clave.</p>
+                        </div>
+                    </div>
+
+                    <!-- Legend Item 5 -->
+                    <div onclick="scrollToPart('sec-conclusion')" class="cursor-pointer p-3 rounded-xl border border-rose-300 bg-rose-50 active:bg-rose-100 transition flex items-start gap-3 shadow-sm">
+                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-rose-500 text-white font-bold text-xs flex items-center justify-center mt-0.5">5</span>
+                        <div>
+                            <h3 class="text-xs font-bold text-rose-900">Conclusión / Cierre</h3>
+                            <p class="text-[11px] text-rose-700 leading-snug mt-0.5">Reitera la demanda central de los familiares: "¿Dónde están?" y vacíos pendientes.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-xs text-slate-500">¿Deseas restablecer vista?</span>
+                    <button onclick="resetFilters()" class="text-xs text-red-600 font-semibold hover:underline">Mostrar todo</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel: Newspaper Canvas Container with Encircled Highlights -->
+        <div class="lg:col-span-2 flex flex-col gap-6">
+            <div class="bg-white rounded-2xl p-5 md:p-8 shadow-sm border border-slate-200 relative">
+                
+                <!-- Newspaper Header simulation -->
+                <div class="border-b-2 border-slate-900 pb-4 mb-6 flex justify-between items-end">
+                    <div>
+                        <span class="text-xs font-bold tracking-widest text-red-600 uppercase">La Jornada • Sección Opinión</span>
+                        <p class="text-xs text-slate-500">martes 29 de septiembre de 2026</p>
+                    </div>
+                    <span class="text-xs font-serif bg-slate-100 px-3 py-1 rounded-md border border-slate-200 text-slate-700">Pág. 42</span>
+                </div>
+
+                <!-- ARTICLE CONTENT WITH ENCIRCLED ANNOTATIONS -->
+                <div class="space-y-6 text-slate-700 font-serif leading-relaxed text-sm md:text-base">
+
+                    <!-- 1. TÍTULO -->
+                    <div id="sec-titulo" data-part="titulo" class="highlight-box relative p-4 rounded-xl border-2 border-amber-500 bg-amber-50 shadow-sm">
+                        <div class="absolute -top-3.5 left-4 bg-amber-500 text-white text-xs font-sans font-bold px-3 py-0.5 rounded-full shadow flex items-center gap-1.5">
+                            <i class="fa-solid fa-tag"></i> <span>1. TÍTULO</span>
+                        </div>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-900 font-sans tracking-tight mt-1">
+                            Ayotzinapa a 12 años: entre informes y líneas de investigación
+                        </h2>
+                    </div>
+
+                    <!-- 2. ENUNCIADOR -->
+                    <div id="sec-enunciador" data-part="enunciador" class="highlight-box relative p-4 rounded-xl border-2 border-blue-500 bg-blue-50 shadow-sm">
+                        <div class="absolute -top-3.5 left-4 bg-blue-500 text-white text-xs font-sans font-bold px-3 py-0.5 rounded-full shadow flex items-center gap-1.5">
+                            <i class="fa-solid fa-user-pen"></i> <span>2. ENUNCIADOR (AUTOR Y FECHA)</span>
+                        </div>
+                        <div class="flex items-center gap-3 mt-1 font-sans">
+                            <div class="w-10 h-10 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-sm shadow">MG</div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-sm">Magdalena Gómez</h3>
+                                <p class="text-xs text-slate-500">29 de septiembre de 2026 00:02</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. INTRODUCCIÓN Y TESIS -->
+                    <div id="sec-introduccion" data-part="introduccion" class="highlight-box relative p-5 rounded-xl border-2 border-emerald-500 bg-emerald-50 shadow-sm">
+                        <div class="absolute -top-3.5 left-4 bg-emerald-600 text-white text-xs font-sans font-bold px-3 py-0.5 rounded-full shadow flex items-center gap-1.5">
+                            <i class="fa-solid fa-bullseye"></i> <span>3. INTRODUCCIÓN Y TESIS</span>
+                        </div>
+                        <p class="mt-2 text-slate-800">
+                            Escribo esta colaboración en espera de un informe anunciado desde la Presidencia de la República para hacerse público "antes del 26 de septiembre"... ¿Qué se está mostrando? Insensibilidad por decirlo lo menos y bien podemos irnos a revisar la trayectoria de un discurso que se siente autorizado para ello. Las madres y los padres siguen reiterando, durante 12 años, la exigencia de conocer el paradero de sus hijos. Con el dolor a cuestas han resistido y han aprendido que en los hechos las previas o las nuevas líneas de investigación no les acercan a la respuesta clara a la pregunta básica <strong class="text-red-700">¿Dónde están?</strong>
+                        </p>
+                    </div>
+
+                    <!-- 4. CUERPO Y ARGUMENTACIÓN -->
+                    <div id="sec-cuerpo" data-part="cuerpo" class="highlight-box relative p-5 rounded-xl border-2 border-purple-500 bg-purple-50 space-y-4 shadow-sm">
+                        <div class="absolute -top-3.5 left-4 bg-purple-600 text-white text-xs font-sans font-bold px-3 py-0.5 rounded-full shadow flex items-center gap-1.5">
+                            <i class="fa-solid fa-align-left"></i> <span>4. CUERPO / ARGUMENTACIÓN</span>
+                        </div>
+                        <p class="mt-2 text-slate-800">
+                            Es evidente que estamos ante un caso que toca a la estructura de la justicia en nuestro país y en consecuencia a la impunidad. Tenemos otros ejemplos, el del movimiento estudiantil de 1968 que sufrió una masacre el 2 de octubre de ese año y sigue en la lógica de numeralia. Un año más sin esclarecimiento ni castigo a los culpables. También el Estado ha callado ante el incumplimiento de la ley para el diálogo, la negociación y la paz digna en Chiapas de 1995 y todo lo que generó el incumplimiento de los Acuerdos de San Andrés.
+                        </p>
+                        <p class="text-slate-800">
+                            Regresando al aniversario 12 de la desaparición de 43 estudiantes normalistas de Ayotzinapa, encontramos en esos años una compleja trayectoria de la investigación. Con impactos fuertes como la conocida como "verdad histórica" y la participación del Grupo de Expertos Independientes (GIEI)...
+                        </p>
+                        <div class="bg-purple-100 p-3.5 rounded-lg border border-purple-300 text-xs font-sans text-purple-900">
+                            <i class="fa-solid fa-circle-exclamation mr-1.5 text-purple-700"></i> <strong>Argumento clave del artículo:</strong> La reciente detención del exgobernador de Guerrero, acusado de ordenar la destrucción de dos videos con evidencias de la noche del 26 de septiembre de 2014.
+                        </div>
+                    </div>
+
+                    <!-- 5. CONCLUSIÓN Y CIERRE -->
+                    <div id="sec-conclusion" data-part="conclusion" class="highlight-box relative p-5 rounded-xl border-2 border-rose-500 bg-rose-50 shadow-sm">
+                        <div class="absolute -top-3.5 left-4 bg-rose-600 text-white text-xs font-sans font-bold px-3 py-0.5 rounded-full shadow flex items-center gap-1.5">
+                            <i class="fa-solid fa-flag-checkered"></i> <span>5. CONCLUSIÓN / CIERRE</span>
+                        </div>
+                        <p class="mt-2 text-slate-800">
+                            No sabemos aún si lo consideran nueva línea de investigación en el informe... Entre los vacíos de fondo está el de la participación del Ejército en la noche de Iguala... Son muchos los cabos sueltos en una investigación que hasta hoy no concluye con la demanda central de los familiares de los 43 estudiantes <span class="font-bold text-red-700 underline">"queremos saber dónde están"</span>.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Footer note inside canvas -->
+                <div class="mt-8 pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between text-xs text-slate-500 font-sans">
+                    <span>Ayotzinapa • Guerrero (La Jornada)</span>
+                    <span class="italic">Canvas interactivo diseñado para análisis de textos periodísticos.</span>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function scrollToPart(partId) {
+            const el = document.getElementById(partId);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                el.classList.add('ring-4', 'ring-offset-2', 'ring-red-600');
+                setTimeout(() => {
+                    el.classList.remove('ring-4', 'ring-offset-2', 'ring-red-600');
+                }, 1600);
+            }
+        }
+
+        function filterParts(type) {
+            const boxes = document.querySelectorAll('.highlight-box');
+            const buttons = ['all', 'titulo', 'enunciador', 'introduccion', 'cuerpo', 'conclusion'];
+            
+            buttons.forEach(btn => {
+                const b = document.getElementById('btn-' + btn);
+                if (b) {
+                    if (btn === type) {
+                        b.className = "px-2.5 py-1.5 text-xs font-medium rounded-lg bg-red-600 text-white transition shadow";
+                    } else {
+                        b.className = "px-2.5 py-1.5 text-xs font-medium rounded-lg text-slate-300 hover:text-white transition";
+                    }
+                }
+            });
+
+            boxes.forEach(box => {
+                const partType = box.getAttribute('data-part');
+                if (type === 'all' || partType === type) {
+                    box.style.opacity = '1';
+                    box.style.pointerEvents = 'auto';
+                    if (type !== 'all') {
+                        box.classList.add('scale-[1.01]');
+                    } else {
+                        box.classList.remove('scale-[1.01]');
+                    }
+                } else {
+                    box.style.opacity = '0.35';
+                    box.classList.remove('scale-[1.01]');
+                }
+            });
+
+            if (type !== 'all') {
+                scrollToPart('sec-' + type);
+            }
+        }
+
+        function resetFilters() {
+            filterParts('all');
+        }
+    </script>
+</body>
+</html>
